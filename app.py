@@ -8,6 +8,7 @@ import base64
 import pandas_profiling
 from streamlit_pandas_profiling import st_profile_report
 import warnings
+from sklearn.impute import SimpleImputer
 
 # Ignore SettingWithCopyWarning from pandas
 warnings.simplefilter(action="ignore", category=Warning)
@@ -66,28 +67,31 @@ if choice == "ML":
         # Remove irrelevant columns based on column_names and "id" in feature names
         irrelevant_columns = [col for col in df.columns if col.lower() in column_names or "id" in col.lower()]
         df_filtered = df.drop(columns=irrelevant_columns)    
-
+        
         # Drop the target column from df_filtered
         df_filtered = df_filtered.drop(columns=[target])
-
+        
         # Convert categorical columns to numerical values using one-hot encoding
         categorical_cols = df_filtered.select_dtypes(include=['object']).columns
         df_encoded = pd.get_dummies(df_filtered, columns=categorical_cols)
-
+        
         # Define X (features) and y (target)
         X = df_encoded
         y = df[target]
-
+        
+        # Handle missing values using SimpleImputer
+        imputer = SimpleImputer(strategy='mean')
+        X_imputed = imputer.fit_transform(X)
+        
         # Apply SelectKBest feature selection
         select_kbest = SelectKBest(k='all')
-        X_kbest = select_kbest.fit_transform(X, y)
-
+        X_kbest = select_kbest.fit_transform(X_imputed, y)
+        
         # Get the indices of the selected features
         selected_features = select_kbest.get_support(indices=True)
-
+        
         # Create a new dataframe with the selected features and the target variable
         df_selected = pd.concat([pd.DataFrame(X_kbest, columns=[X.columns[i] for i in selected_features]), y], axis=1)
-
         if model_type == "Classification":
             from pycaret.classification import *
             # Convert the target column to numerical values using label encoding
