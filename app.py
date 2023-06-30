@@ -171,8 +171,6 @@ if choice == "ML":
                 st.info("Trying out Hyperparameters")
                 st.dataframe(setup_df)
                 best_model = compare_models()
-                # Step 4: Tune the hyperparameters of the best model using grid search
-                tuned_model = tune_model(best_model, n_iter=50, optimize='R2', search_library='scikit-optimize')
                 compare_df = pull()
                 st.info("This is the ML Model")
                 st.dataframe(compare_df)
