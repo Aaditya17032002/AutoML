@@ -7,8 +7,6 @@ import json,pickle
 import base64
 import pandas_profiling
 from streamlit_pandas_profiling import st_profile_report
-from tempfile import NamedTemporaryFile
-from tensorflow.keras.models import load_model
 import warnings
 
 # Ignore SettingWithCopyWarning from pandas
