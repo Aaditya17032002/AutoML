@@ -120,7 +120,7 @@ if choice == "ML":
                 for feature in df_selected.columns[:-1]:
                     feature_min = df_selected[feature].min()
                     feature_max = df_selected[feature].max()
-                    feature_ranges[feature] = {"min": int(feature_min), "max": int(feature_max)}
+                    feature_ranges[feature] = {"min": int(feature_min), "max": int(feature_max) + 1}
 
                 # Convert DataFrame to dictionary with int values
                 df_selected_dict = df_selected.astype(int).to_dict()
@@ -188,7 +188,7 @@ if choice == "ML":
                 for feature in df_selected.columns[:-1]:
                     feature_min = df_selected[feature].min()
                     feature_max = df_selected[feature].max()
-                    feature_ranges[feature] = {"min": int(feature_min), "max": int(feature_max)}
+                    feature_ranges[feature] = {"min": int(feature_min), "max": int(feature_max) + 1}
 
                 # Convert DataFrame to dictionary with int values
                 df_selected_dict = df_selected.astype(int).to_dict()
