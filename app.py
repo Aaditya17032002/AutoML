@@ -63,10 +63,9 @@ if choice == "ML":
     target = st.selectbox("Select your target", df.columns)
 
     try:
-        # Remove irrelevant columns
-        irrelevant_columns = [col for col in df.columns if col in column_names]
-        df_filtered = df.drop(columns=irrelevant_columns)
-    
+        # Remove irrelevant columns based on column_names and "id" in feature names
+        irrelevant_columns = [col for col in df.columns if col.lower() in column_names or "id" in col.lower()]
+        df_filtered = df.drop(columns=irrelevant_columns)    
 
         # Drop the target column from df_filtered
         df_filtered = df_filtered.drop(columns=[target])
