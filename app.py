@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 from sklearn.feature_selection import SelectKBest, chi2
 from sklearn.preprocessing import LabelEncoder
-import os
+import os,re
 import json,pickle
 import base64
 import pandas_profiling
@@ -65,8 +65,15 @@ if choice == "ML":
 
     try:
         # Remove irrelevant columns based on column_names and "id" in feature names
-        irrelevant_columns = [col for col in df.columns if not (col.lower().endswith("id") and len(col) > 2) and col not in column_names]
-        df_filtered = df.drop(columns=irrelevant_columns)    
+        irrelevant_columns = [col for col in df.columns if col in column_names]
+        relevant_columns = []
+        
+        for col in irrelevant_columns:
+            words = re.findall(r'\w+', col)
+            filtered_words = [word for word in words if not re.search(r'id', word)]
+            relevant_columns.append(' '.join(filtered_words))
+        
+        df_filtered = df[relevant_columns]  
         
         # Drop the target column from df_filtered
         df_filtered = df_filtered.drop(columns=[target])
