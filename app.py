@@ -65,7 +65,7 @@ if choice == "ML":
 
     try:
         # Remove irrelevant columns based on column_names and "id" in feature names
-        irrelevant_columns = [col for col in df.columns if col.lower() in column_names or "id" in col.lower()]
+        irrelevant_columns = [col for col in df.columns if ("id" not in col.lower().split('_')[-1]) and (not any(word in col.lower() for word in column_names))]
         df_filtered = df.drop(columns=irrelevant_columns)    
         
         # Drop the target column from df_filtered
