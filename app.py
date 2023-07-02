@@ -49,7 +49,7 @@ if choice == "Profiling":
     profile_report = df.profile_report()
     st_profile_report(profile_report)
 
-column_names = [   "No","NO","no", "RowNumber",    "CustomerId",    "Index",    "ID",  "id" ,  "SerialNumber",    "RecordId",    "Timestamp",    "CreatedAt",    "UpdatedAt",    "UniqueIdentifier",    "Counter",    "SequenceNumber",    "Description",    "Notes",    "Comments",    "Remarks",    "Metadata",    "Source",    "SourceId",    "SourceSystem",    "SourceFile",    "SourceDate",    "SourceType",    "SourceName",    "SourceURL",    "SourceCode",    "SourceLocation",    "SourceCategory",    "SourceStatus",    "SourceVersion"]
+column_names = [   "No","NO","no", "RowNumber",    "CustomerId",    "Index",    "ID",  "id" ,"Id","iD" , "SerialNumber",    "RecordId",    "Timestamp",    "CreatedAt",    "UpdatedAt",    "UniqueIdentifier",    "Counter",    "SequenceNumber",    "Description",    "Notes",    "Comments",    "Remarks",    "Metadata",    "Source",    "SourceId",    "SourceSystem",    "SourceFile",    "SourceDate",    "SourceType",    "SourceName",    "SourceURL",    "SourceCode",    "SourceLocation",    "SourceCategory",    "SourceStatus",    "SourceVersion"]
 
 # Define the label encoder object
 label_encoder = LabelEncoder()
