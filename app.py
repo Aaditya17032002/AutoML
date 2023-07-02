@@ -49,7 +49,7 @@ if choice == "Profiling":
     profile_report = df.profile_report()
     st_profile_report(profile_report)
 
-column_names = [   "No","NO","no", "RowNumber",    "CustomerId",    "Index",    "ID",    "SerialNumber",    "RecordId",    "Timestamp",    "CreatedAt",    "UpdatedAt",    "UniqueIdentifier",    "Counter",    "SequenceNumber",    "Description",    "Notes",    "Comments",    "Remarks",    "Metadata",    "Source",    "SourceId",    "SourceSystem",    "SourceFile",    "SourceDate",    "SourceType",    "SourceName",    "SourceURL",    "SourceCode",    "SourceLocation",    "SourceCategory",    "SourceStatus",    "SourceVersion"]
+column_names = [   "No","NO","no", "RowNumber",    "CustomerId",    "Index",    "ID",  "id" ,  "SerialNumber",    "RecordId",    "Timestamp",    "CreatedAt",    "UpdatedAt",    "UniqueIdentifier",    "Counter",    "SequenceNumber",    "Description",    "Notes",    "Comments",    "Remarks",    "Metadata",    "Source",    "SourceId",    "SourceSystem",    "SourceFile",    "SourceDate",    "SourceType",    "SourceName",    "SourceURL",    "SourceCode",    "SourceLocation",    "SourceCategory",    "SourceStatus",    "SourceVersion"]
 
 # Define the label encoder object
 label_encoder = LabelEncoder()
@@ -66,14 +66,7 @@ if choice == "ML":
     try:
         # Remove irrelevant columns based on column_names and "id" in feature names
         irrelevant_columns = [col for col in df.columns if col in column_names]
-        relevant_columns = []
-        
-        for col in irrelevant_columns:
-            words = re.findall(r'\w+', col)
-            filtered_words = [word for word in words if not re.search(r'id', word)]
-            relevant_columns.append(' '.join(filtered_words))
-        
-        df_filtered = df[relevant_columns]  
+        df_filtered = df.drop(columns=irrelevant_columns)  
         
         # Drop the target column from df_filtered
         df_filtered = df_filtered.drop(columns=[target])
