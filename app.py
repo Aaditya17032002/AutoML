@@ -65,12 +65,14 @@ if choice == "ML":
 
     try:
         # Remove irrelevant columns based on column_names and "id" in feature names
-        irrelevant_columns = [col for col in df.columns if col in column_names]
-        df_filtered = df.drop(columns=irrelevant_columns)  
-        
+        irrelevant_columns = [
+            col for col in df.columns
+            if col.lower().endswith("_id") and col.lower() not in column_names
+        ]
+        df_filtered = df.drop(columns=irrelevant_columns)
+
         # Drop the target column from df_filtered
-        df_filtered = df_filtered.drop(columns=[target])
-        
+        df_filtered = df_filtered.drop(columns=[target])        
         # Convert categorical columns to numerical values using one-hot encoding
         categorical_cols = df_filtered.select_dtypes(include=['object']).columns
         df_encoded = pd.get_dummies(df_filtered, columns=categorical_cols)
